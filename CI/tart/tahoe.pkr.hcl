@@ -17,8 +17,8 @@ source "tart-cli" "tart" {
   cpu_count    = 4
   memory_gb    = 8
   disk_size_gb = 50
-  ssh_password = "admin"
-  ssh_username = "admin"
+  ssh_password = "Matt"
+  ssh_username = "Matt"
   ssh_timeout  = "180s"
   boot_command = [
     "<wait60s><spacebar>",
@@ -63,7 +63,11 @@ source "tart-cli" "tart" {
     "<wait10s><leftShiftOn><tab><leftShiftOff><wait1s><spacebar>",
     "<wait10s><leftAltOn>q<leftAltOff>",
   ]
-
+  
+ run_extra_args = [
+      "--no-audio"
+]
+    
   create_grace_time    = "30s"
   recovery_partition   = "keep"
 }
@@ -99,44 +103,38 @@ provisioner "shell" {
   ###################################
   
   provisioner "ansible" {
-    playbook_file   = "../ansible/user.yml"
-    user            = "admin"
-    extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]
-  }
-  
-  provisioner "ansible" {
     playbook_file   = "../ansible/name-26.2.yml"
-    user            = "admin"
+    user            = "Matt"
     extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]
   }
 
   provisioner "ansible" {
     playbook_file   = "../ansible/autoLogin.yml"
-    user            = "admin"
+    user            = "Matt"
     extra_arguments = ["--extra-vars", "admin_user=admin kcpassword_b64=HO0/Sry8uizKyk6C ansible_become_pass=admin"]
   }
 
   provisioner "ansible" {
     playbook_file   = "../ansible/disableSleep.yml"
-    user            = "admin"
+    user            = "Matt"
     extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]
   }
 
   provisioner "ansible" {
     playbook_file   = "../ansible/screenSaver.yml"
-    user            = "admin"
+    user            = "Matt"
     extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]
   }
 
   provisioner "ansible" {
     playbook_file   = "../ansible/disableSpotlight.yml"
-    user            = "admin"
+    user            = "Matt"
     extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]
   }
   
   provisioner "ansible" {
     playbook_file = "../ansible/cloneRepo.yml"
-    user          = "admin"
+    user          = "Matt"
     extra_arguments = [
       "--extra-vars", "ansible_become_pass=admin"
     ]
