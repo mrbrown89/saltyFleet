@@ -29,6 +29,7 @@ No state is trusted unless it survives this process.
 [Tart](https://tart.run) 
 
 **Shopping list:**
+
 - Tart
 - Packer
 - Ansible
@@ -54,7 +55,12 @@ brew install ansible
 ```
 
 **How it works:**
+
 If this is the first run tart will download the IPSW file that is defined in our source block. Tart caches the download so if you delete the VM that is create and start again you don't have to wait around for the download to complete.
+
+Using the packer file tart will build out a macOS image using the username and password of `Matt` which is the user our salt states are configured to run against. Feel free to change these to whatever you like. The image will be created with 4 CPU cores and 8GB of memory. 
+
+
 
 
 
