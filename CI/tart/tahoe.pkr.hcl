@@ -77,9 +77,9 @@ build {
 
   provisioner "shell" {
     inline = [
-      "echo admin | sudo -S sh -c \"mkdir -p /etc/sudoers.d/; echo 'admin ALL=(ALL) NOPASSWD: ALL' | EDITOR=tee visudo /etc/sudoers.d/admin-nopasswd\"",
+      "echo admin | sudo -S sh -c \"mkdir -p /etc/sudoers.d/; echo 'Matt ALL=(ALL) NOPASSWD: ALL' | EDITOR=tee visudo /etc/sudoers.d/Matt-nopasswd\"",
       "echo '00000000: 1ced 3f4a bcbc ba2c caca 4e82' | sudo xxd -r - /etc/kcpassword",
-      "sudo defaults write /Library/Preferences/com.apple.loginwindow autoLoginUser admin",
+      "sudo defaults write /Library/Preferences/com.apple.loginwindow autoLoginUser Matt",
       "sudo defaults write /Library/Preferences/com.apple.screensaver loginWindowIdleTime 0",
     ]
   }
@@ -105,32 +105,32 @@ provisioner "shell" {
   provisioner "ansible" {
     playbook_file   = "../ansible/autoLogin.yml"
     user            = "Matt"
-    extra_arguments = ["--extra-vars", "admin_user=admin kcpassword_b64=HO0/Sry8uizKyk6C ansible_become_pass=admin"]
+    extra_arguments = ["--extra-vars", "admin_user=Matt kcpassword_b64=HO0/Sry8uizKyk6C ansible_become_pass=Matt"]
   }
 
   provisioner "ansible" {
     playbook_file   = "../ansible/disableSleep.yml"
     user            = "Matt"
-    extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]
+    extra_arguments = ["--extra-vars", "ansible_become_pass=Matt"]
   }
 
   provisioner "ansible" {
     playbook_file   = "../ansible/screenSaver.yml"
     user            = "Matt"
-    extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]
+    extra_arguments = ["--extra-vars", "ansible_become_pass=Matt"]
   }
 
   provisioner "ansible" {
     playbook_file   = "../ansible/disableSpotlight.yml"
     user            = "Matt"
-    extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]
+    extra_arguments = ["--extra-vars", "ansible_become_pass=Matt"]
   }
   
   provisioner "ansible" {
     playbook_file = "../ansible/cloneRepo.yml"
     user          = "Matt"
     extra_arguments = [
-      "--extra-vars", "ansible_become_pass=admin"
+      "--extra-vars", "ansible_become_pass=Matt"
     ]
   }
 }
