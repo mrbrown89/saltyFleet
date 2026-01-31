@@ -1,0 +1,10 @@
+---
+- name: Ensure Matt is using Zsh
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: Set Matt's login shell to Zsh
+      ansible.builtin.user:
+        name: Matt
+        shell: /bin/zsh
