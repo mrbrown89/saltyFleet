@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-USER_NAME="admin"           # matches your Packer ssh user
+USER_NAME="Matt"           # matches your Packer ssh user
 USER_HOME="/Users/${USER_NAME}"
 BREW_PREFIX="/opt/homebrew"
 
