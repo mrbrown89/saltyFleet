@@ -27,7 +27,7 @@ No state is trusted unless it survives this process.
 CI starts from a golden macOS VM
 
 Shopping list:
-- Parallels Pro
+- Parallels Pro or Tart
 - Packer
 - Ansible
 
