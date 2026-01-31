@@ -87,48 +87,48 @@ build {
   }
   
 provisioner "shell" {
-  script = "scripts/xcodeTools.sh"
+  script = "../scripts/xcodeTools.sh"
 }
 
 provisioner "shell" {
-  script = "scripts/brew.sh"
+  script = "../scripts/brew.sh"
 }
 
   ###################################
   # Ansible provisioners
   ###################################
   provisioner "ansible" {
-    playbook_file   = "ansible/name-26.2.yml"
+    playbook_file   = "../ansible/name-26.2.yml"
     user            = "admin"
     extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]
   }
 
   provisioner "ansible" {
-    playbook_file   = "ansible/autoLogin.yml"
+    playbook_file   = "../ansible/autoLogin.yml"
     user            = "admin"
     extra_arguments = ["--extra-vars", "admin_user=admin kcpassword_b64=HO0/Sry8uizKyk6C ansible_become_pass=admin"]
   }
 
   provisioner "ansible" {
-    playbook_file   = "ansible/disableSleep.yml"
+    playbook_file   = "../ansible/disableSleep.yml"
     user            = "admin"
     extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]
   }
 
   provisioner "ansible" {
-    playbook_file   = "ansible/screenSaver.yml"
+    playbook_file   = "../ansible/screenSaver.yml"
     user            = "admin"
     extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]
   }
 
   provisioner "ansible" {
-    playbook_file   = "ansible/disableSpotlight.yml"
+    playbook_file   = "../ansible/disableSpotlight.yml"
     user            = "admin"
     extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]
   }
   
   provisioner "ansible" {
-    playbook_file = "ansible/cloneRepo.yml"
+    playbook_file = "../ansible/cloneRepo.yml"
     user          = "admin"
 
     extra_arguments = [
