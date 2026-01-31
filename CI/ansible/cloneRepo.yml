@@ -15,3 +15,9 @@
         dest: "{{ repo_dest }}"
         version: "{{ repo_branch }}"
         update: yes
+        
+    - name: Make bootstrap script executable
+      ansible.builtin.file:
+        path: "{{ repo_dest }}/bootStrap/bootStrap.sh"
+        mode: '0755'
+        state: file
