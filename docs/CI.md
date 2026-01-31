@@ -89,10 +89,22 @@ local  tahoe-26.2                                                               
 
 This is our base image. Now we need to clone it and clone this repo to it. Once thats done we can run the new VM, run our bootstrap script and check our salt stuff works! As a side note, you can clone this base image to use on other projects.
 
+We first need to clone our base image. We can do that with `tart clone tahoe-26.2 saltyMac` which will give us:
+
+```
+Source Name                                                                                              Disk Size SizeOnDisk State  
+local  saltyMac                                                                                          50   28   28         stopped
+local  tahoe-26.2                                                                                        50   30   30         stopped
+
+```
+
+Nice! We have a cloned VM that we can play around with. But wouldn't it be nice to automate the clone of this repo to our cloned image? Read on...
+
 `cd` into `/salting-macOS/CI/salting-macOS` and run `packer build saltyMac.pkr.hcl`.
 
-This packer file will clone the the base image with the same cpu and memory count. This time packer will only run two ansible playbooks which will set the vm name and clone this repo.
+This time packer will only run two ansible playbooks which will set the vm name and clone this repo.
 
+Now simply run `tart run saltyMac` to start our VM! 
 
 ---
 
