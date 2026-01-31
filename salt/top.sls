@@ -2,5 +2,5 @@ base:
   '*':
     - macOS
     - brew
-    - zsh
+#    - zsh
     - vim
