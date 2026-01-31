@@ -1,0 +1,23 @@
+---
+- name: Configure macOS hostname
+  hosts: all
+  become: yes
+  gather_facts: no
+
+  tasks:
+    - name: Set system hostname
+      ansible.builtin.command: scutil --set HostName test-26-002
+
+    - name: Set computer name
+      ansible.builtin.command: scutil --set ComputerName test-26-002
+
+    - name: Set local hostname
+      ansible.builtin.command: scutil --set LocalHostName test-26-002
+
+    - name: Verify hostname change
+      ansible.builtin.command: hostname
+      register: result
+
+    - name: Show new hostname
+      ansible.builtin.debug:
+        msg: "Hostname successfully set to: {{ result.stdout }}"
