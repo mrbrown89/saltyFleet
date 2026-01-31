@@ -97,6 +97,13 @@ provisioner "shell" {
   ###################################
   # Ansible provisioners
   ###################################
+  
+  provisioner "ansible" {
+    playbook_file   = "../ansible/user.yml"
+    user            = "admin"
+    extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]
+  }
+  
   provisioner "ansible" {
     playbook_file   = "../ansible/name-26.2.yml"
     user            = "admin"
@@ -130,7 +137,6 @@ provisioner "shell" {
   provisioner "ansible" {
     playbook_file = "../ansible/cloneRepo.yml"
     user          = "admin"
-
     extra_arguments = [
       "--extra-vars", "ansible_become_pass=admin"
     ]
