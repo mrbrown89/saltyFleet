@@ -37,15 +37,23 @@ source "parallels-macvm" "tahoe" {
 build {
   name    = "macBuildTest"
   sources = ["source.parallels-macvm.tahoe"]
+  
+###################################
+# Ansible provisioners
+###################################
 
-#   Clone Repo
+ provisioner "ansible" {
+    playbook_file   = "../ansible/user.yml"
+    user            = "admin"
+    extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]
+  }
+  
   provisioner "ansible" {
     playbook_file = "../ansible/cloneRepo.yml"
     user          = "Matt"
 
     extra_arguments = [
-      "--extra-vars", "ansible_become_pass=admin"
-    ]
+      "--extra-vars", "ansible_become_pass=admin"]
   }
 
   # Register in Parallels Control Center
