@@ -42,6 +42,6 @@ zshrc_salt_aliases:
     - content: |
         # macOS Salt workflow aliases
 
-        alias mac-check_build_state='sudo /usr/local/sbin/salt-call --local state.apply saltenv=base --file-root="/Users/{{ user }}/Documents/Code/macOS/salt" --pillar-root="/Users/{{ user }}/Documents/Code/macOS/pillar" test=true'
+        alias mac-check_build_state='sudo /usr/local/sbin/salt-call --local state.apply saltenv=base --file-root="/Users/{{ user }}/Documents/salting-macOS/salt" --pillar-root="/Users/{{ user }}/Documents/salting-macOS/pillar" test=true'
 
-        alias mac-apply_build_state='sudo /usr/local/sbin/salt-call --local state.apply saltenv=base --file-root="/Users/{{ user }}/Documents/Code/macOS/salt" --pillar-root="/Users/{{ user }}/Documents/Code/macOS/pillar" test=false'
+        alias mac-apply_build_state='sudo /usr/local/sbin/salt-call --local state.apply saltenv=base --file-root="/Users/{{ user }}/Documents/salting-macOS/salt" --pillar-root="/Users/{{ user }}/Documents/salting-macOS/pillar" test=false'
