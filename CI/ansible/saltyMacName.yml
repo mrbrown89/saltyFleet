@@ -6,13 +6,13 @@
 
   tasks:
     - name: Set system hostname
-      ansible.builtin.command: scutil --set HostName test-26-002
+      ansible.builtin.command: scutil --set HostName saltyMac
 
     - name: Set computer name
-      ansible.builtin.command: scutil --set ComputerName test-26-002
+      ansible.builtin.command: scutil --set ComputerName saltyMac
 
     - name: Set local hostname
-      ansible.builtin.command: scutil --set LocalHostName test-26-002
+      ansible.builtin.command: scutil --set LocalHostName saltyMac
 
     - name: Verify hostname change
       ansible.builtin.command: hostname
