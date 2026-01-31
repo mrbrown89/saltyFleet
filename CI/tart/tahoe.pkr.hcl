@@ -28,7 +28,7 @@ source "tart-cli" "tart" {
     "<wait10s><leftShiftOn><tab><leftShiftOff><spacebar>",
     "<wait10s><leftShiftOn><tab><leftShiftOff><spacebar>",
     "<wait10s><leftShiftOn><tab><leftShiftOff><spacebar>",
-    "<wait10s><tab><tab><tab><tab><tab><tab>Managed via Tart<tab>admin<tab>admin<tab>admin<tab><tab><spacebar><tab><tab><spacebar>",
+    "<wait10s><tab><tab><tab><tab><tab><tab>Managed via Tart<tab>Matt<tab>Matt<tab>Matt<tab><tab><spacebar><tab><tab><spacebar>",
     "<wait120s><leftAltOn><f5><leftAltOff>",
     "<wait10s><leftShiftOn><tab><leftShiftOff><spacebar>",
     "<wait10s><tab><spacebar>",
@@ -54,12 +54,12 @@ source "tart-cli" "tart" {
     "<wait10s><tab><tab><tab><tab><tab><tab><tab><tab><tab><tab><tab><tab><spacebar>",
     "<wait10s><leftAltOn>q<leftAltOff>",
     "<wait10s>sudo spctl --global-disable<enter>",
-    "<wait10s>admin<enter>",
+    "<wait10s>Matt<enter>",
     "<wait10s>open '/System/Applications/System Settings.app'<enter>",
     "<wait10s><leftCtrlOn><f2><leftCtrlOff><right><right><right><down>Privacy & Security<enter>",
     "<wait10s><leftShiftOn><tab><tab><tab><tab><tab><tab><leftShiftOff>",
     "<wait10s><down><wait1s><down><wait1s><enter>",
-    "<wait10s>admin<enter>",
+    "<wait10s>Matt<enter>",
     "<wait10s><leftShiftOn><tab><leftShiftOff><wait1s><spacebar>",
     "<wait10s><leftAltOn>q<leftAltOff>",
   ]
@@ -77,10 +77,7 @@ build {
 
   provisioner "shell" {
     inline = [
-      "echo admin | sudo -S sh -c \"mkdir -p /etc/sudoers.d/; echo 'Matt ALL=(ALL) NOPASSWD: ALL' | EDITOR=tee visudo /etc/sudoers.d/Matt-nopasswd\"",
-      "echo '00000000: 1ced 3f4a bcbc ba2c caca 4e82' | sudo xxd -r - /etc/kcpassword",
-      "sudo defaults write /Library/Preferences/com.apple.loginwindow autoLoginUser Matt",
-      "sudo defaults write /Library/Preferences/com.apple.screensaver loginWindowIdleTime 0",
+      "echo Matt | sudo -S sh -c \"mkdir -p /etc/sudoers.d/; echo 'Matt ALL=(ALL) NOPASSWD: ALL' | EDITOR=tee visudo /etc/sudoers.d/Matt-nopasswd\"",
     ]
   }
 
