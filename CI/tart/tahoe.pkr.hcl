@@ -116,12 +116,6 @@ provisioner "shell" {
   }
 
   provisioner "ansible" {
-    playbook_file   = "ansible/safariPrep.yml"
-    user            = "admin"
-    extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]
-  }
-
-  provisioner "ansible" {
     playbook_file   = "ansible/screenSaver.yml"
     user            = "admin"
     extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]
@@ -131,5 +125,14 @@ provisioner "shell" {
     playbook_file   = "ansible/disableSpotlight.yml"
     user            = "admin"
     extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]
+  }
+  
+  provisioner "ansible" {
+    playbook_file = "ansible/cloneRepo.yml"
+    user          = "admin"
+
+    extra_arguments = [
+      "--extra-vars", "ansible_become_pass=admin"
+    ]
   }
 }
