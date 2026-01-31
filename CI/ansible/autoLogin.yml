@@ -5,8 +5,8 @@
   become: true
 
   vars:
-    admin_user: packer
-    kcpassword_b64: "tart"
+    admin_user: Matt
+    kcpassword_b64: "Matt"
 
   tasks:
     - name: Write /etc/kcpassword
