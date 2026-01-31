@@ -83,7 +83,8 @@ Once you have all the plugins then simply run `packer build .`. Tart will then d
 Once packer has completed, run `tart list`. You'll see your new VM:
 
 ```
-
+Source Name                                                                                              Disk Size SizeOnDisk State  
+local  tahoe-26.2                                                                                        50   30   30         stopped
 ```
 
 This is our base image. Now we need to clone it and clone this repo to it. Once thats done we can run the new VM, run our bootstrap script and check our salt stuff works! As a side note, you can clone this base image to use on other projects.
