@@ -24,62 +24,42 @@ No state is trusted unless it survives this process.
 
 ---
 
-## The Golden Image
+##  Tart
 
-CI starts from a golden macOS VM. For the two hypervisors that I've give packer files for are slightly different to one another so lets break them out:
+[Tart](https://tart.run) 
 
-### Parallels
-
-Shopping list:
-- Parallels Pro
-- Packer
-- Ansible
-
-This VM:
-- is manually created and kept intentionally minimal
-- has Parallels tools installed
-- has SSH enabled
-- xcode tools installed
-- Home Brew is installed
-
-The idea is to create this golden image and never change it. Instead we use Packer to clone it each time we want to run a build test. That being said when Parallels releases a new version with updated Parallels tools I do reimport the VM, update the tools and then unregister the VM.
-
-#### Packer
-
-The Packer workflow looks like this:
-
-1. Clone the golden macOS VM
-2. Boot the cloned VM
-3. Connect over SSH
-4. Run provisioning steps using Ansible. In this case just to clone this repo to the VM
-5. Shut the VM down
-6. Register it in Parallels
-
-All Packer configuration lives in the repo so anyone can spin up the same test VM locally. BUT before running the packer file in anger you need to edit these variables:
-
-```
-variable "username" {
-  type    = string
-  default = "Matt"
-}
-
-variable "local_user" {
-  type    = string
-  default = "Matt"
-}
-```
-
-I have my username in here so you'll need to change that to yours.
-
-### Tart
-
-Shopping list:
+**Shopping list:**
 - Tart
 - Packer
 - Ansible
 
-This VM:
-- If this is the first run tart will download 
+You can download all three of the above using brew:
+
+**Tart**
+
+```
+brew install cirruslabs/cli/tart
+```
+
+**Packer**
+
+```
+brew install hashicorp/tap/packer
+```
+
+**Ansible**
+
+```
+brew install ansible
+```
+
+**How it works:**
+If this is the first run tart will download the IPSW file that is defined in our source block. Tart caches the download so if you delete the VM that is create and start again you don't have to wait around for the download to complete.
+
+
+
+**Running Packer**
+
 
 ---
 
