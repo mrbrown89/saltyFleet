@@ -2,3 +2,4 @@ base:
   '*':
     - macOS
     - brew
+    - vim
