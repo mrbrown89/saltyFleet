@@ -101,12 +101,6 @@ provisioner "shell" {
   ###################################
   # Ansible provisioners
   ###################################
-  
-  provisioner "ansible" {
-    playbook_file   = "../ansible/name-26.2.yml"
-    user            = "Matt"
-    extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]
-  }
 
   provisioner "ansible" {
     playbook_file   = "../ansible/autoLogin.yml"
