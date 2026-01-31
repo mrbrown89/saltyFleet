@@ -122,12 +122,4 @@ provisioner "shell" {
     user            = "Matt"
     extra_arguments = ["--extra-vars", "ansible_become_pass=Matt"]
   }
-  
-  provisioner "ansible" {
-    playbook_file = "../ansible/cloneRepo.yml"
-    user          = "Matt"
-    extra_arguments = [
-      "--extra-vars", "ansible_become_pass=Matt"
-    ]
-  }
 }
