@@ -8,6 +8,8 @@ Also, CI in a VM using Packer is fun!
 
 The goal is simple. If it passes CI, I’m confident applying it for real. Famous last words, right?
 
+I've created packer files for Parallels and Tart. 
+
 ---
 
 ## What CI Means
@@ -24,10 +26,12 @@ No state is trusted unless it survives this process.
 
 ## The Golden Image
 
-CI starts from a golden macOS VM
+CI starts from a golden macOS VM. For the two hypervisors that I've give packer files for are slightly different to one another so lets break them out:
+
+### Parallels
 
 Shopping list:
-- Parallels Pro or Tart
+- Parallels Pro
 - Packer
 - Ansible
 
@@ -40,11 +44,7 @@ This VM:
 
 The idea is to create this golden image and never change it. Instead we use Packer to clone it each time we want to run a build test. That being said when Parallels releases a new version with updated Parallels tools I do reimport the VM, update the tools and then unregister the VM.
 
----
-
-## Packer
-
-[Packer](https://www.packer.io/) is used to automate VM creation and testing.
+#### Packer
 
 The Packer workflow looks like this:
 
@@ -55,7 +55,31 @@ The Packer workflow looks like this:
 5. Shut the VM down
 6. Register it in Parallels
 
-All Packer configuration lives in the repo so anyone can spin up the same test VM locally.
+All Packer configuration lives in the repo so anyone can spin up the same test VM locally. BUT before running the packer file in anger you need to edit these variables:
+
+```
+variable "username" {
+  type    = string
+  default = "Matt"
+}
+
+variable "local_user" {
+  type    = string
+  default = "Matt"
+}
+```
+
+I have my username in here so you'll need to change that to yours.
+
+### Tart
+
+Shopping list:
+- Tart
+- Packer
+- Ansible
+
+This VM:
+- If this is the first run tart will download 
 
 ---
 
@@ -97,20 +121,3 @@ Normally `bootStrap.sh` can also install Xcode tools and Homebrew, but those ste
 If the states converge cleanly and idempotently here, I’m happy to trust them on a real machine.
 
 ---
-
-## Workflow
-
-```mermaid
-flowchart TD
-    A["Golden macOS VM"] --> B["Packer Build"]
-    B --> C["Boot VM"]
-    C --> D["SSH Available"]
-    D --> E["Ansible Provisioning"]
-    E --> F["Repo Cloned to VM"]
-    F --> G["Run bootStrap.sh"]
-    G --> H["Install Salt"]
-    H --> I["Apply Salt States"]
-    I --> J["Shutdown VM"]
-    I --> K["Build Fails"]
-    J --> L["VM Discarded"]
-```
