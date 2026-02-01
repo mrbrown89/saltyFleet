@@ -6,4 +6,4 @@ base:
     - security
     - zsh
     - vim
-    - wallpaper
+#    - wallpaper <- currently failing
