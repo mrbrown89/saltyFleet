@@ -5,12 +5,12 @@
 # -----------------------------
 
 # Ensure ~/.zshrc exists (do NOT manage full contents)
-#zshrc_exists:
-#  file.touch:
-#    - name: /Users/{{ user }}/.zshrc
-#    - user: {{ user }}
-#    - group: staff
-#    - mode: 644
+zshrc_exists:
+  file.touch:
+    - name: /Users/{{ user }}/.zshrc
+    - user: {{ user }}
+    - group: staff
+    - mode: 644
 
 
 # Core zsh configuration
