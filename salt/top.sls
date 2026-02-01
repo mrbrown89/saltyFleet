@@ -4,6 +4,6 @@ base:
     - brew
     - ghostty
     - security
-#    - zsh
+    - zsh
     - vim
     - wallpaper
