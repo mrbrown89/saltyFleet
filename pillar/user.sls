@@ -1,3 +1,3 @@
 user:
-  primary_user: Matt
-  home_dir: /Users/Matt
+  primary_user: matt
+  home_dir: /Users/matt
