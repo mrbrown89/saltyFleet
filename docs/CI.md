@@ -104,7 +104,7 @@ Nice! We have a cloned VM that we can play around with. But wouldn't it be nice 
 
 This time packer will only run two ansible playbooks which will set the vm name and clone this repo.
 
-Now simply run `tart run saltyMac` to start our VM! 
+Now simply run `tart run saltyMac` to start our VM! Once your VM is up, grant full disk access to terminal. Then `cd` into the boot strap directory and run `./bootStrap.sh`. Done!
 
 ---
 
