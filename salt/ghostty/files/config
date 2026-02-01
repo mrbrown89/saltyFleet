@@ -1,0 +1,6 @@
+# Ghostty configuration
+# Managed by SaltStack
+
+bell-features = no-attention,no-title
+cursor-click-to-move = true
+macos-option-as-alt = true
