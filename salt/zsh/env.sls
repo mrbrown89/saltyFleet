@@ -8,10 +8,10 @@
 zshrc_exists:
   file.touch:
     - name: /Users/{{ user }}/.zshrc
+    - contents: ""
+    - mode: '0644'
     - user: {{ user }}
     - group: staff
-    - mode: 644
-
 
 # Core zsh configuration
 zshrc_core:
