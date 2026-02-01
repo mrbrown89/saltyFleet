@@ -6,7 +6,7 @@
 
 vimrc_file:
   file.managed:
-    - name: /Users/{{ user }}/.vimrc
+    - name: /Users/matt/.vimrc
     - contents: ""
     - mode: '0644'
     - user: {{ user }}
@@ -14,7 +14,7 @@ vimrc_file:
     
 vimrc:
   file.managed:
-    - name: /Users/{{ user }}/.vimrc
+    - name: /Users/matt/.vimrc
     - user: {{ user }}
     - group: staff
     - mode: '0644'
