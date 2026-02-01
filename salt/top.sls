@@ -6,3 +6,4 @@ base:
     - security
 #    - zsh
     - vim
+    - wallpaper
