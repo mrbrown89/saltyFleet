@@ -1,5 +1,6 @@
-# Ghostty configuration
-# Managed by SaltStack
+# -----------------------------
+# Ghostty Config. Managed by SaltStack.
+# -----------------------------
 
 bell-features = no-attention,no-title
 cursor-click-to-move = true
