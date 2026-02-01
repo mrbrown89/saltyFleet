@@ -5,16 +5,15 @@
 # -----------------------------
 
 vimrc_file:
-  file.managed:
-    - name: /Users/matt/.vimrc
-    - contents: ""
-    - mode: '0644'
+  file.touch:
+    - name: /Users/{{ user }}/.vimrc
     - user: {{ user }}
     - group: staff
-    
+    - mode: 644
+
 vimrc:
   file.managed:
-    - name: /Users/matt/.vimrc
+    - name: /Users/{{ user }}/.vimrc
     - user: {{ user }}
     - group: staff
     - mode: '0644'
