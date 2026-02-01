@@ -6,5 +6,5 @@
 
 set_wallpaper:
   cmd.run:
-    - name: "osascript -e 'tell application \"System Events\" to set picture of every desktop to \"/Users/Matt/Documents//salting-macOS/salt/wallpaper/files/proBlack"'"
+    - name: "osascript -e 'tell application \"System Events\" to set picture of every desktop to \"/Users/Matt/Documents/salting-macOS/salt/wallpaper/files/proBlack"'"
     - runas: {{ user }}
