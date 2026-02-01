@@ -3,5 +3,6 @@ base:
     - macOS
     - brew
     - ghostty
+    - security
 #    - zsh
     - vim
