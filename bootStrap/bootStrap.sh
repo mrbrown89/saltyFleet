@@ -62,6 +62,25 @@ install_homebrew() {
   brew update
 }
 
+user_dotfiles() {
+  USER_NAME="matt"
+  USER_HOME="/Users/${USER_NAME}"
+
+  echo ">>> Ensuring dotfiles exist for ${USER_NAME}..."
+
+  for file in ".zshrc" ".vimrc"; do
+    if [[ ! -f "${USER_HOME}/${file}" ]]; then
+      echo ">>> Creating ${USER_HOME}/${file}"
+      sudo -u "${USER_NAME}" touch "${USER_HOME}/${file}"
+    else
+      echo ">>> ${file} already exists"
+    fi
+
+    sudo chown "${USER_NAME}":staff "${USER_HOME}/${file}"
+    sudo chmod 0644 "${USER_HOME}/${file}"
+  done
+}
+
 install_salt() {
   echo ">>> Ensuring Salt is installed..."
 
@@ -118,6 +137,7 @@ main() {
 
   install_xcode_tools
   install_homebrew
+  user_dotfiles
   install_salt
   run_salt
 
