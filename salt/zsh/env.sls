@@ -5,8 +5,8 @@
 # -----------------------------
 
 # Ensure ~/.zshrc exists (do NOT manage full contents)
-zshrc_exists:
-  file.touch:
+zshrc_file:
+  file.managed:
     - name: /Users/{{ user }}/.zshrc
     - contents: ""
     - mode: '0644'
