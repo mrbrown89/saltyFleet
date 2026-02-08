@@ -123,11 +123,11 @@ runSalt() {
   
   echo "Writing dynamic user pillar for Salt"
 
-  tee "${pillarPath}/user.sls" > /dev/null <<EOF
-  user:
-    primary_user: ${userName}
-    home_dir: ${userHome}
-  EOF
+tee "${pillarPath}/user.sls" > /dev/null <<EOF
+user:
+  primary_user: ${userName}
+  home_dir: ${userHome}
+EOF
 
   echo "Using Salt pillar directory: ${pillarPath}"
 
