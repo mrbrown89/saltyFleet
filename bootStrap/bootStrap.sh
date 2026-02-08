@@ -1,104 +1,105 @@
-#!/usr/bin/env bash
+#!/bin/zsh --no-rcs
+
 set -euo pipefail
 
-BREW_PREFIX="/opt/homebrew"
+brewLocation="/opt/homebrew"
 
-install_xcode_tools() {
-  echo ">>> Ensuring Xcode Command Line Tools..."
+installXcodeTools() {
+  echo "Ensuring Xcode Command Line Tools..."
 
   if xcode-select -p >/dev/null 2>&1; then
-    echo ">>> Xcode Command Line Tools already installed."
+    echo "Xcode Command Line Tools already installed."
     return 0
   fi
 
-  echo ">>> Installing Xcode Command Line Tools..."
+  echo "Installing Xcode Command Line Tools..."
   xcode-select --install 2>/dev/null || true
 
   until xcode-select -p >/dev/null 2>&1; do
     sleep 5
   done
 
-  echo ">>> Xcode Command Line Tools installation complete."
+  echo "Xcode Command Line Tools installation complete."
 }
 
-install_homebrew() {
+installHomeBrew() {
   if command -v brew >/dev/null 2>&1; then
-    echo ">>> Homebrew already installed."
-    eval "$(${BREW_PREFIX}/bin/brew shellenv 2>/dev/null || true)"
+    echo "Homebrew already installed."
+    eval "$(${brewLocation}/bin/brew shellenv 2>/dev/null || true)"
     return 0
   fi
 
   if [[ "$(id -u)" -eq 0 ]]; then
-    echo ">>> ERROR: Do not run this script as root."
+    echo "ERROR: Do not run this script as root."
     exit 1
   fi
 
   sudo -v
 
-  USER_NAME="$(id -un)"
-  USER_HOME="${HOME}"
+  userName="$(id -un)"
+  userHome="${HOME}"
 
-  echo ">>> Installing Homebrew for user: ${USER_NAME}"
+  echo "Installing Homebrew for user: ${userName}"
 
-  sudo install -d -o "${USER_NAME}" -g wheel -m 0755 "${BREW_PREFIX}"
+  sudo install -d -o "${userName}" -g wheel -m 0755 "${brewLocation}"
   sudo install -d -o root -g wheel -m 0755 /etc/paths.d
-  echo "${BREW_PREFIX}/bin" | sudo tee /etc/paths.d/homebrew >/dev/null
+  echo "${brewLocation}/bin" | sudo tee /etc/paths.d/homebrew >/dev/null
   sudo chmod a+r /etc/paths.d/homebrew
 
-  echo ">>> Running Homebrew installer..."
+  echo "Running Homebrew installer..."
   NONINTERACTIVE=1 /bin/bash -c \
     "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-  eval "$(${BREW_PREFIX}/bin/brew shellenv)"
-  export PATH="${BREW_PREFIX}/bin:${BREW_PREFIX}/sbin:${PATH}"
+  eval "$(${brewLocation}/bin/brew shellenv)"
+  export PATH="${brewLocation}/bin:${brewLocation}/sbin:${PATH}"
 
-  if ! grep -q "brew shellenv" "${USER_HOME}/.zprofile" 2>/dev/null; then
+  if ! grep -q "brew shellenv" "${userHome}/.zprofile" 2>/dev/null; then
     {
       echo "# Homebrew"
-      echo "eval \"\$(${BREW_PREFIX}/bin/brew shellenv)\""
-    } >> "${USER_HOME}/.zprofile"
+      echo "eval \"\$(${brewLocation}/bin/brew shellenv)\""
+    } >> "${userHome}/.zprofile"
   fi
 
   brew update
 }
 
-user_dotfiles() {
-  USER_NAME="matt"
-  USER_HOME="/Users/${USER_NAME}"
+userDotFiles() {
+  userName="matt"
+  userHome="/Users/${userName}"
 
-  echo ">>> Ensuring dotfiles exist for ${USER_NAME}..."
+  echo "Ensuring dotfiles exist for ${userName}..."
 
   for file in ".zshrc" ".vimrc"; do
-    if [[ ! -f "${USER_HOME}/${file}" ]]; then
-      echo ">>> Creating ${USER_HOME}/${file}"
-      sudo -u "${USER_NAME}" touch "${USER_HOME}/${file}"
+    if [[ ! -f "${userHome}/${file}" ]]; then
+      echo "Creating ${userHome}/${file}"
+      sudo -u "${userName}" touch "${userHome}/${file}"
     else
-      echo ">>> ${file} already exists"
+      echo "${file} already exists"
     fi
 
-    sudo chown "${USER_NAME}":staff "${USER_HOME}/${file}"
-    sudo chmod 0644 "${USER_HOME}/${file}"
+    sudo chown "${userName}":staff "${userHome}/${file}"
+    sudo chmod 0644 "${userHome}/${file}"
   done
 }
 
-install_salt() {
-  echo ">>> Ensuring Salt is installed..."
+installSalt() {
+  echo "Ensuring Salt is installed..."
 
-  eval "$(${BREW_PREFIX}/bin/brew shellenv 2>/dev/null || true)"
-  export PATH="/usr/local/sbin:/usr/local/bin:${BREW_PREFIX}/bin:${BREW_PREFIX}/sbin:${PATH}"
+  eval "$(${brewLocation}/bin/brew shellenv 2>/dev/null || true)"
+  export PATH="/usr/local/sbin:/usr/local/bin:${brewLocation}/bin:${brewLocation}/sbin:${PATH}"
 
   if ! command -v salt-call >/dev/null 2>&1; then
     brew install salt
   else
-    echo ">>> Salt already installed."
+    echo "Salt already installed."
   fi
 
-  echo ">>> Salt version:"
+  echo "Salt version:"
   salt-call --version
 }
 
-run_salt() {
-  echo ">>> Running Salt states (masterless)..."
+runSalt() {
+  echo "Running Salt states (masterless)..."
 
   SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
@@ -107,24 +108,24 @@ run_salt() {
   SALT_STATE_PATH="$(cd "${SALT_STATE_PATH}" && pwd)"
 
   if [[ ! -f "${SALT_STATE_PATH}/top.sls" ]]; then
-    echo ">>> FATAL: top.sls not found."
-    echo ">>> Expected at: ${SALT_STATE_PATH}/top.sls"
+    echo "FATAL: top.sls not found."
+    echo "Expected at: ${SALT_STATE_PATH}/top.sls"
     exit 1
   fi
 
-  echo ">>> Using Salt state directory: ${SALT_STATE_PATH}"
+  echo "Using Salt state directory: ${SALT_STATE_PATH}"
 
   # Dynamically find the pillar directory
   PILLAR_PATH="${PILLAR_PATH:-${SCRIPT_DIR}/../pillar}"
   PILLAR_PATH="$(cd "${PILLAR_PATH}" && pwd)"
 
   if [[ ! -f "${PILLAR_PATH}/top.sls" ]]; then
-    echo ">>> FATAL: top.sls not found in pillar directory."
-    echo ">>> Expected at: ${PILLAR_PATH}/top.sls"
+    echo "FATAL: top.sls not found in pillar directory."
+    echo "Expected at: ${PILLAR_PATH}/top.sls"
     exit 1
   fi
 
-  echo ">>> Using Salt pillar directory: ${PILLAR_PATH}"
+  echo "Using Salt pillar directory: ${PILLAR_PATH}"
 
   # Run masterless salt-call with dynamic file root and pillar root. Means the repo can be cloned to anywhere.
   sudo salt-call --local state.apply \
@@ -135,11 +136,11 @@ run_salt() {
 
 main() {
 
-  install_xcode_tools
-  install_homebrew
-  user_dotfiles
-  install_salt
-  run_salt
+  installXcodeTools
+  installHomeBrew
+  userDotFiles
+  installSalt
+  runSalt
 
   echo "Bootstrap complete. Whoop!"
 }
