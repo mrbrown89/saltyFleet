@@ -4,4 +4,7 @@
 
 bell-features = no-attention,no-title
 cursor-click-to-move = true
-macos-option-as-alt = true
+macos-option-as-alt = false
+font-family = "JetBrainsMono NFM Regular"
+macos-titlebar-proxy-icon = hidden
+macos-auto-secure-input = true
