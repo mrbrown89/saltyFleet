@@ -97,37 +97,37 @@ installSalt() {
 runSalt() {
   echo "Running Salt states (masterless)..."
 
-  SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+  scriptDir="${0:A:h}"
 
   # Dynamically find the salt state directory
-  SALT_STATE_PATH="${SALT_STATE_PATH:-${SCRIPT_DIR}/../salt}"
-  SALT_STATE_PATH="$(cd "${SALT_STATE_PATH}" && pwd)"
+  saltStatePath="${saltStatePath:-${scriptDir}/../salt}"
+  saltStatePath="$(cd "${saltStatePath}" && pwd)"
 
-  if [[ ! -f "${SALT_STATE_PATH}/top.sls" ]]; then
+  if [[ ! -f "${saltStatePath}/top.sls" ]]; then
     echo "FATAL: top.sls not found."
-    echo "Expected at: ${SALT_STATE_PATH}/top.sls"
+    echo "Expected at: ${saltStatePath}/top.sls"
     exit 1
   fi
 
-  echo "Using Salt state directory: ${SALT_STATE_PATH}"
+  echo "Using Salt state directory: ${saltStatePath}"
 
   # Dynamically find the pillar directory
-  PILLAR_PATH="${PILLAR_PATH:-${SCRIPT_DIR}/../pillar}"
-  PILLAR_PATH="$(cd "${PILLAR_PATH}" && pwd)"
+  pillarPath="${pillarPath:-${scriptDir}/../pillar}"
+  pillarPath="$(cd "${pillarPath}" && pwd)"
 
-  if [[ ! -f "${PILLAR_PATH}/top.sls" ]]; then
+  if [[ ! -f "${pillarPath}/top.sls" ]]; then
     echo "FATAL: top.sls not found in pillar directory."
-    echo "Expected at: ${PILLAR_PATH}/top.sls"
+    echo "Expected at: ${pillarPath}/top.sls"
     exit 1
   fi
 
-  echo "Using Salt pillar directory: ${PILLAR_PATH}"
+  echo "Using Salt pillar directory: ${pillarPath}"
 
   # Run masterless salt-call with dynamic file root and pillar root. Means the repo can be cloned to anywhere.
   sudo salt-call --local state.apply \
     saltenv=base \
-    --file-root="${SALT_STATE_PATH}" \
-    --pillar-root="${PILLAR_PATH}"
+    --file-root="${saltStatePath}" \
+    --pillar-root="${pillarPath}"
 }
 
 main() {
