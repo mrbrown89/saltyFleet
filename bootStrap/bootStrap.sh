@@ -120,6 +120,14 @@ runSalt() {
     echo "Expected at: ${pillarPath}/top.sls"
     exit 1
   fi
+  
+  echo "Writing dynamic user pillar for Salt"
+
+  tee "${pillarPath}/user.sls" > /dev/null <<EOF
+  user:
+    primary_user: ${userName}
+    home_dir: ${userHome}
+  EOF
 
   echo "Using Salt pillar directory: ${pillarPath}"
 
