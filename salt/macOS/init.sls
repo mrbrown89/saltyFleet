@@ -2,4 +2,4 @@ include:
   - macOS.rosetta
   - macOS.shell
   - macOS.dock
-  - macOS.clock
+#  - macOS.clock WIP
