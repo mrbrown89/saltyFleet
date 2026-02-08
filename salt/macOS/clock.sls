@@ -35,3 +35,13 @@ time_announcements_enabled:
     - value: false
     - user: {{ user }}
     - vtype: bool
+
+restart_clock:
+  cmd.run:
+    - name: killall SystemUIServer
+    - runas: {{ user }}
+    - require:
+      - macdefaults: show_ampm
+      - macdefaults: show_date
+      - macdefaults: show_week_day
+      - macdefaults: time_announcements_enabled
