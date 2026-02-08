@@ -4,7 +4,7 @@
 # Set menu clock
 # -----------------------------
 
-show_am/pm:
+show_ampm:
   macdefaults.write:
     - name: ShowAMPM
     - domain: com.apple.menuextra.clock
