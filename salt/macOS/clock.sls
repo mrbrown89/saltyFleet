@@ -7,7 +7,7 @@
 show_am/pm:
   macdefaults.write:
     - name: ShowAMPM
-    - domain: com.apple.menuextra.clock.plist
+    - domain: com.apple.menuextra.clock
     - value: true
     - user: {{ user }}
     - vtype: bool
@@ -15,7 +15,7 @@ show_am/pm:
 show_date:
   macdefaults.write:
     - name: ShowDate
-    - domain: com.apple.menuextra.clock.plist
+    - domain: com.apple.menuextra.clock
     - value: 0
     - user: {{ user }}
     - vtype: int
@@ -23,7 +23,7 @@ show_date:
 show_week_day:
   macdefaults.write:
     - name: ShowDayofWeek
-    - domain: com.apple.menuextra.clock.plist
+    - domain: com.apple.menuextra.clock
     - value: true
     - user: {{ user }}
     - vtype: bool
@@ -31,7 +31,7 @@ show_week_day:
 time_announcements_enabled:
   macdefaults.write:
     - name: TimeAnnouncementsEnabled
-    - domain: com.apple.menuextra.clock.plist
+    - domain: com.apple.menuextra.clock
     - value: false
     - user: {{ user }}
     - vtype: bool
