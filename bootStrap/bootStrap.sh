@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+userName=$(scutil <<< "show State:/Users/ConsoleUser" | awk '/Name :/ && ! /loginwindow/ { print $3 }')
+userHome=$(dscl . read /Users/"$userName" NFSHomeDirectory | awk '{print $2}')
 brewLocation="/opt/homebrew"
 
 installXcodeTools() {
@@ -36,9 +38,6 @@ installHomeBrew() {
 
   sudo -v
 
-  userName="$(id -un)"
-  userHome="${HOME}"
-
   echo "Installing Homebrew for user: ${userName}"
 
   sudo install -d -o "${userName}" -g wheel -m 0755 "${brewLocation}"
@@ -64,9 +63,6 @@ installHomeBrew() {
 }
 
 userDotFiles() {
-  userName="matt"
-  userHome="/Users/${userName}"
-
   echo "Ensuring dotfiles exist for ${userName}..."
 
   for file in ".zshrc" ".vimrc"; do
