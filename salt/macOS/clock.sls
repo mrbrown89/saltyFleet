@@ -18,7 +18,7 @@ show_date:
     - domain: com.apple.menuextra.clock
     - value: 0
     - user: {{ user }}
-    - vtype: bool
+    - vtype: int 
 
 show_week_day:
   macdefaults.write:
