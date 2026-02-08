@@ -1,3 +1,1 @@
-user:
-  primary_user: matt
-  home_dir: /Users/matt
+#Filled in with the bootStrap.sh script
