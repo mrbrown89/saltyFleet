@@ -8,3 +8,4 @@ macos-option-as-alt = false
 font-family = "JetBrainsMono NFM Regular"
 macos-titlebar-proxy-icon = hidden
 macos-auto-secure-input = true
+shell-integration-features = ssh-env
