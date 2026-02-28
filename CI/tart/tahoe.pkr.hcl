@@ -17,8 +17,8 @@ source "tart-cli" "tart" {
   cpu_count    = 4
   memory_gb    = 8
   disk_size_gb = 50
-  ssh_password = "Matt"
-  ssh_username = "Matt"
+  ssh_password = "admin"
+  ssh_username = "admin"
   ssh_timeout  = "180s"
   boot_command = [
     "<wait60s><spacebar>",
@@ -28,7 +28,7 @@ source "tart-cli" "tart" {
     "<wait10s><leftShiftOn><tab><leftShiftOff><spacebar>",
     "<wait10s><leftShiftOn><tab><leftShiftOff><spacebar>",
     "<wait10s><leftShiftOn><tab><leftShiftOff><spacebar>",
-    "<wait10s><tab><tab><tab><tab><tab><tab>Managed via Tart<tab>Matt<tab>Matt<tab>Matt<tab><tab><spacebar><tab><tab><spacebar>",
+    "<wait10s><tab><tab><tab><tab><tab><tab>Managed via Tart<tab>admin<tab>admin<tab>admin<tab><tab><spacebar><tab><tab><spacebar>",
     "<wait120s><leftAltOn><f5><leftAltOff>",
     "<wait10s><leftShiftOn><tab><leftShiftOff><spacebar>",
     "<wait10s><tab><spacebar>",
@@ -54,12 +54,12 @@ source "tart-cli" "tart" {
     "<wait10s><tab><tab><tab><tab><tab><tab><tab><tab><tab><tab><tab><tab><spacebar>",
     "<wait10s><leftAltOn>q<leftAltOff>",
     "<wait10s>sudo spctl --global-disable<enter>",
-    "<wait10s>Matt<enter>",
+    "<wait10s>admin<enter>",
     "<wait10s>open '/System/Applications/System Settings.app'<enter>",
     "<wait10s><leftCtrlOn><f2><leftCtrlOff><right><right><right><down>Privacy & Security<enter>",
     "<wait10s><leftShiftOn><tab><tab><tab><tab><tab><tab><leftShiftOff>",
     "<wait10s><down><wait1s><down><wait1s><enter>",
-    "<wait10s>Matt<enter>",
+    "<wait10s>admin<enter>",
     "<wait10s><leftShiftOn><tab><leftShiftOff><wait1s><spacebar>",
     "<wait10s><leftAltOn>q<leftAltOff>",
   ]
@@ -77,7 +77,7 @@ build {
 
   provisioner "shell" {
     inline = [
-      "echo Matt | sudo -S sh -c \"mkdir -p /etc/sudoers.d/; echo 'Matt ALL=(ALL) NOPASSWD: ALL' | EDITOR=tee visudo /etc/sudoers.d/Matt-nopasswd\"",
+      "echo admin | sudo -S sh -c \"mkdir -p /etc/sudoers.d/; echo 'admin ALL=(ALL) NOPASSWD: ALL' | EDITOR=tee visudo /etc/sudoers.d/admin-nopasswd\"",
     ]
   }
 
@@ -101,25 +101,25 @@ provisioner "shell" {
 
   provisioner "ansible" {
     playbook_file   = "../ansible/autoLogin.yml"
-    user            = "Matt"
-    extra_arguments = ["--extra-vars", "admin_user=Matt kcpassword_b64=HO0/Sry8uizKyk6C ansible_become_pass=Matt"]
+    user            = "admin"
+    extra_arguments = ["--extra-vars", "admin_user=admin kcpassword_b64=HO0/Sry8uizKyk6C ansible_become_pass=admin"]
   }
 
   provisioner "ansible" {
     playbook_file   = "../ansible/disableSleep.yml"
-    user            = "Matt"
-    extra_arguments = ["--extra-vars", "ansible_become_pass=Matt"]
+    user            = "admin"
+    extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]
   }
 
   provisioner "ansible" {
     playbook_file   = "../ansible/screenSaver.yml"
-    user            = "Matt"
-    extra_arguments = ["--extra-vars", "ansible_become_pass=Matt"]
+    user            = "admin"
+    extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]
   }
 
   provisioner "ansible" {
     playbook_file   = "../ansible/disableSpotlight.yml"
-    user            = "Matt"
-    extra_arguments = ["--extra-vars", "ansible_become_pass=Matt"]
+    user            = "admin"
+    extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]
   }
 }

@@ -1,11 +1,11 @@
 ---
-- name: Configure auto-login for a local user
+- name: Configure auto-login for a local admin
   hosts: all
   gather_facts: false
   become: true
 
   vars:
-    admin_user: Matt
+    admin_admin: Matt
     kcpassword_b64: "Matt"
 
   tasks:
@@ -17,8 +17,8 @@
         mode: "0600"
         content: "{{ kcpassword_b64 | b64decode }}"
 
-    - name: Set autoLoginUser
+    - name: Set autoLoginadmin
       command: >
         /usr/bin/defaults write
         /Library/Preferences/com.apple.loginwindow
-        autoLoginUser -string {{ admin_user }}
+        autoLoginadmin -string {{ admin_admin }}

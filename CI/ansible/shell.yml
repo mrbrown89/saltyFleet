@@ -6,5 +6,5 @@
   tasks:
     - name: Set Matt's login shell to Zsh
       ansible.builtin.user:
-        name: Matt
+        name: admin
         shell: /bin/zsh

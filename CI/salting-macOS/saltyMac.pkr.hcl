@@ -13,8 +13,8 @@ packer {
 
 source "tart-cli" "saltyMac" {
   vm_name      = "saltyMac"
-  ssh_username = "Matt"
-  ssh_password = "Matt"
+  ssh_username = "admin"
+  ssh_password = "admin"
   ssh_timeout  = "180s"
 }
 
@@ -23,20 +23,20 @@ build {
 
   provisioner "ansible" {
     playbook_file   = "../ansible/saltyMacName.yml"
-    user            = "Matt"
+    user            = "admin"
     extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]
   }
 
   provisioner "ansible" {
     playbook_file   = "../ansible/cloneRepo.yml"
-    user            = "Matt"
-    extra_arguments = ["--extra-vars", "ansible_become_pass=Matt"]
+    user            = "admin"
+    extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]
   }
   
     provisioner "ansible" {
     playbook_file   = "../ansible/shell.yml"
-    user            = "Matt"
-    extra_arguments = ["--extra-vars", "ansible_become_pass=Matt"]
+    user            = "admin"
+    extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]
   }
   
 }
