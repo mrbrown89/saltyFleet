@@ -58,9 +58,9 @@ brew install ansible
 
 If this is the first run tart will download the IPSW file that is defined in our source block. Tart caches the download so if you delete the VM that is create and start again you don't have to wait around for the download to complete.
 
-Using the packer file tart will build out a macOS image using the username and password of `Matt`. Feel free to change these to whatever you like. The image will be created with 4 CPU cores and 8GB of memory. Packer will also set a VM name. Each time Apple releases a new macOS version you can change the `from_ipsw` variable and the `vm_name` variable to the new version of macOS and rerun the packer file to get a new upto date VM. Cool right! 
+Using the packer file tart will build out a macOS image using the username and password of `admin`. Feel free to change these to whatever you like. The image will be created with 4 CPU cores and 8GB of memory. Packer will also set a VM name. Each time Apple releases a new macOS version you can change the `from_ipsw` variable and the `vm_name` variable to the new version of macOS and rerun the packer file to get a new upto date VM. Cool right! 
 
-In our build section we have a shell provisioner which sets passwordless sudo for the user `Matt`.
+In our build section we have a shell provisioner which sets passwordless sudo for the user `admin`.
 
 Next we have another shell provisioner which checks to see if gatekeeper is disabled by running `spctl`.
 
