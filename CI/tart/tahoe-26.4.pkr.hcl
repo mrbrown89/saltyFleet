@@ -88,15 +88,4 @@ build {
     ]
   }
 
-
-  ###################################
-  # Ansible provisioners
-  ###################################
-
-  provisioner "ansible" {
-    playbook_file   = "../../ansible/saltyMacName.yml"
-    user            = "admin"
-    extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]
-  }
-
 }
