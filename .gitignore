@@ -1,0 +1,5 @@
+# Ignore packages used by CI/bootstrap
+ci/ansible/packages/fleet-osquery.pkg
+/ci/packages/*
+!/ci/packages/.keep
+.DS_Store
