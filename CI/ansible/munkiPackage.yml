@@ -1,0 +1,16 @@
+# ci/ansible/playbooks/install-munki.yml
+- name: Install Munki client
+  hosts: all
+  become: yes
+
+  vars:
+    munki_url: "https://github.com/munki/munki/releases/download/v7.0.10/munkitools-7.0.10.5496.pkg"
+
+  tasks:
+    - name: Download Munki package
+      get_url:
+        url: "{{ munki_url }}"
+        dest: /tmp/munki.pkg
+
+    - name: Install Munki package
+      command: installer -pkg /tmp/munki.pkg -target /

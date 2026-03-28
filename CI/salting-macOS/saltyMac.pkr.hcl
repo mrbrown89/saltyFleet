@@ -26,9 +26,21 @@ build {
     user            = "admin"
     extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]
   }
+  
+  provisioner "ansible" {
+    playbook_file   = "../ansible/saltPackage.yml"
+    user            = "admin"
+    extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]
+  }
 
   provisioner "ansible" {
-    playbook_file   = "../ansible/cloneRepo.yml"
+    playbook_file   = "../ansible/munkiPackage.yml"
+    user            = "admin"
+    extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]
+  }
+
+  provisioner "ansible" {
+    playbook_file   = "../ansible/fleetPackage.yml"
     user            = "admin"
     extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]
   }
@@ -38,5 +50,10 @@ build {
     user            = "admin"
     extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]
   }
+  
+provisioner "shell" {
+  script = "../scripts/saltyMacs.sh"
+  execute_command = "sudo zsh '{{ .Path }}'"
+}
   
 }

@@ -1,0 +1,16 @@
+# ci/ansible/playbooks/install-salt.yml
+- name: Install Salt minion
+  hosts: all
+  become: yes
+
+  vars:
+    salt_url: "https://packages.broadcom.com/artifactory/saltproject-generic/macos/3007.13/salt-3007.13-py3-arm64.pkg"
+
+  tasks:
+    - name: Download Salt package
+      get_url:
+        url: "{{ salt_url }}"
+        dest: /tmp/salt.pkg
+
+    - name: Install Salt package
+      command: installer -pkg /tmp/salt.pkg -target /

@@ -1,9 +1,5 @@
 base:
   '*':
-    - macOS
-    - brew
-    - ghostty
+    - rosetta
+    - xcode
     - security
-    - zsh
-    - vim
-#    - wallpaper <- currently failing

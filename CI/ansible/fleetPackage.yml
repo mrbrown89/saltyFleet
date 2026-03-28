@@ -1,0 +1,23 @@
+---
+- name: Install Fleet package on macOS
+  hosts: all
+  become: yes
+
+  vars:
+    fleet_pkg_local_path: "{{ playbook_dir }}/../packages/fleet-osquery.pkg"
+    fleet_pkg_remote_path: "/tmp/fleet-osquery.pkg"
+
+  tasks:
+    - name: Copy Fleet package to macOS VM
+      copy:
+        src: "{{ fleet_pkg_local_path }}"
+        dest: "{{ fleet_pkg_remote_path }}"
+        mode: '0644'
+
+    - name: Install Fleet package
+      command: "installer -pkg {{ fleet_pkg_remote_path }} -target /"
+
+    - name: Remove package after install
+      file:
+        path: "{{ fleet_pkg_remote_path }}"
+        state: absent

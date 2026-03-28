@@ -4,9 +4,9 @@
   gather_facts: false
 
   vars:
-    repo_url: "https://github.com/mrbrown89/salting-macOS.git"
+    repo_url: "https://github.com/mrbrown89/saltyFleet.git"
     repo_branch: "main"
-    repo_dest: "/Users/admin/Documents/salting-macOS"
+    repo_dest: "/opt/saltyFleet"
 
   tasks:
     - name: Clone salting macOS repo
@@ -15,9 +15,4 @@
         dest: "{{ repo_dest }}"
         version: "{{ repo_branch }}"
         update: yes
-        
-    - name: Make bootstrap script executable
-      ansible.builtin.file:
-        path: "{{ repo_dest }}/bootStrap/bootStrap.sh"
-        mode: '0755'
-        state: file
+

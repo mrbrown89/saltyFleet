@@ -1,7 +1,3 @@
-# -----------------------------
-# Firewall Settings aka Application Layer Firewall (ALF) in Apple speak
-# -----------------------------
-
 enable_firewall:
   cmd.run:
     - name: /usr/libexec/ApplicationFirewall/socketfilterfw --setglobalstate on

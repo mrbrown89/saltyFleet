@@ -1,23 +1,27 @@
 ---
-- name: Configure macOS hostname
+- name: Set random CI VM hostname
   hosts: all
   become: yes
-  gather_facts: no
 
   tasks:
-    - name: Set system hostname
-      ansible.builtin.command: scutil --set HostName saltyMac
 
-    - name: Set computer name
-      ansible.builtin.command: scutil --set ComputerName saltyMac
+    - name: Generate random 4 digit number
+      set_fact:
+        vm_suffix: "{{ 1000 | random(start=0, step=1) + 1000 }}"
 
-    - name: Set local hostname
-      ansible.builtin.command: scutil --set LocalHostName saltyMac
+    - name: Set hostname variable
+      set_fact:
+        vm_name: "testing-virt-{{ vm_suffix }}"
 
-    - name: Verify hostname change
-      ansible.builtin.command: hostname
-      register: result
+    - name: Set ComputerName
+      command: scutil --set ComputerName "{{ vm_name }}"
 
-    - name: Show new hostname
-      ansible.builtin.debug:
-        msg: "Hostname successfully set to: {{ result.stdout }}"
+    - name: Set HostName
+      command: scutil --set HostName "{{ vm_name }}"
+
+    - name: Set LocalHostName
+      command: scutil --set LocalHostName "{{ vm_name }}"
+
+    - name: Print hostname
+      debug:
+        msg: "Hostname set to {{ vm_name }}"
