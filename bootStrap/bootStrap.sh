@@ -26,6 +26,7 @@ start_munki() {
 fleet_config() {
 
  ~/.fleetctl/fleetctl config set --file ~/Code/saltyFleet/fleet/osqueryOptions.json
+ ~/.fleetctl/fleetctl apply -f ~/Code/saltyFleet/fleet/queries.yml
 
 }
 
