@@ -136,6 +136,18 @@ runSaltCall() {
 
     logMessage "Running salt-call"
     "${saltCall}" --local state.apply
+    result=$?
+
+    # ----------------------------
+    # WRITE state.json FOR FLEET
+    # ----------------------------
+    commit="$(cd /opt/saltyFleet && git rev-parse HEAD 2>/dev/null)"
+    runStatus="success"
+    [[ "${result}" -ne 0 ]] && runStatus="failed"
+
+    printf '%s\n' "{\"repo_commit\":\"${commit}\",\"last_run\":\"$(date -u +%FT%TZ)\",\"salt_status\":\"${runStatus}\"}" > /usr/local/saltymacs/state.json
+
+    return "${result}"
 }
 
 main() {
