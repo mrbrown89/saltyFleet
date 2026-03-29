@@ -15,5 +15,5 @@ reload_munki_check_daemon:
           /bin/launchctl bootout system /Library/LaunchDaemons/com.googlecode.munki.managedsoftwareupdate-check.plist
         fi
         /bin/launchctl bootstrap system /Library/LaunchDaemons/com.googlecode.munki.managedsoftwareupdate-check.plist
-    - require:
+    - watch:
       - file: munki_check_daemon
