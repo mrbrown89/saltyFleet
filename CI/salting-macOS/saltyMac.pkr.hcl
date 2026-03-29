@@ -34,12 +34,6 @@ build {
   }
 
   provisioner "ansible" {
-    playbook_file   = "../ansible/munkiPackage.yml"
-    user            = "admin"
-    extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]
-  }
-
-  provisioner "ansible" {
     playbook_file   = "../ansible/fleetPackage.yml"
     user            = "admin"
     extra_arguments = ["--extra-vars", "ansible_become_pass=admin"]

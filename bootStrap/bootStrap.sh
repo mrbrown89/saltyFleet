@@ -18,11 +18,6 @@ start_fleet() {
   "$HOME/.fleetctl/fleetctl" preview
 }
 
-start_munki() {
-  echo "Starting Munki repo container..."
-  docker compose -f "$SCRIPT_DIR/../munkiRepo/docker-compose.yml" up -d
-}
-
 fleet_config() {
 
  ~/.fleetctl/fleetctl config set --file ~/Code/saltyFleet/fleet/osqueryOptions.json
