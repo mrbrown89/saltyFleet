@@ -1,96 +1,123 @@
-queries:
-  - name: saltyMacs State File Missing (macOS)
-    description: Lists macOS hosts that do not have the saltyMacs state file.
-    query: |
-      SELECT 1 AS missing_saltymacs_state
-      WHERE NOT EXISTS (
-        SELECT 1
-        FROM file
-        WHERE path = '/usr/local/saltymacs/state.json'
-      );
-    platform: darwin
-    interval: 3600
-    observer_can_run: false
-    automations_enabled: false
-
-  - name: saltyMacs Run Stale Over 2 Hours (macOS)
-    description: Lists macOS hosts where saltyMacs state is older than 2 hours.
-    query: |
-      SELECT 1 AS saltymacs_run_stale
+api_version: v1
+kind: query
+metadata:
+  name: saltyMacs State File Missing (macOS)
+  description: Lists macOS hosts that do not have the saltyMacs state file.
+spec:
+  query: |
+    SELECT 1 AS missing_saltymacs_state
+    WHERE NOT EXISTS (
+      SELECT 1
       FROM file
       WHERE path = '/usr/local/saltymacs/state.json'
-        AND (strftime('%s','now') - mtime) > 7200;
-    platform: darwin
-    interval: 3600
-    observer_can_run: false
-    automations_enabled: false
+    );
+  platform: darwin
+  interval: 600
+  observer_can_run: false
+  automations_enabled: false
 
-  - name: saltyMacs Last Status Not Success (macOS)
-    description: Lists macOS hosts where saltyMacs last recorded status was not success.
-    query: |
-      SELECT 1 AS saltymacs_status_failed
-      FROM file_lines
-      WHERE path = '/usr/local/saltymacs/state.json'
-        AND line NOT LIKE '%"salt_status":"success"%';
-    platform: darwin
-    interval: 3600
-    observer_can_run: false
-    automations_enabled: false
+---
+api_version: v1
+kind: query
+metadata:
+  name: saltyMacs Run Stale Over 2 Hours (macOS)
+  description: Lists macOS hosts where saltyMacs state is older than 2 hours.
+spec:
+  query: |
+    SELECT 1 AS saltymacs_run_stale
+    FROM file
+    WHERE path = '/usr/local/saltymacs/state.json'
+      AND (strftime('%s','now') - mtime) > 7200;
+  platform: darwin
+  interval: 600
+  observer_can_run: false
+  automations_enabled: false
 
-  - name: saltyMacs Last Run Inventory (macOS)
-    description: Shows the last saltyMacs run time, status, and repo commit for macOS hosts.
-    query: |
-      SELECT
-        substr(
-          line,
-          instr(line, '"repo_commit":"') + 15,
-          instr(substr(line, instr(line, '"repo_commit":"') + 15), '"') - 1
-        ) AS repo_commit,
-        substr(
-          line,
-          instr(line, '"last_run":"') + 12,
-          instr(substr(line, instr(line, '"last_run":"') + 12), '"') - 1
-        ) AS last_run,
-        substr(
-          line,
-          instr(line, '"salt_status":"') + 15,
-          instr(substr(line, instr(line, '"salt_status":"') + 15), '"') - 1
-        ) AS salt_status
-      FROM file_lines
-      WHERE path = '/usr/local/saltymacs/state.json';
-    platform: darwin
-    interval: 3600
-    observer_can_run: false
-    automations_enabled: false
+---
+api_version: v1
+kind: query
+metadata:
+  name: saltyMacs Last Status Not Success (macOS)
+  description: Lists macOS hosts where saltyMacs last recorded status was not success.
+spec:
+  query: |
+    SELECT 1 AS saltymacs_status_failed
+    FROM file_lines
+    WHERE path = '/usr/local/saltymacs/state.json'
+      AND line NOT LIKE '%"salt_status":"success"%';
+  platform: darwin
+  interval: 600
+  observer_can_run: false
+  automations_enabled: false
 
-  - name: macOS Firewall Status
-    description: Shows firewall and stealth mode status on macOS hosts.
-    query: |
-      SELECT
-        CASE
-          WHEN global_state = 0 THEN 'disabled'
-          WHEN global_state = 1 THEN 'enabled'
-          WHEN global_state = 2 THEN 'block_all'
-        END AS firewall_status,
-        CASE
-          WHEN stealth_enabled = 1 THEN 'enabled'
-          ELSE 'disabled'
-        END AS stealth_mode
-      FROM alf;
-    platform: darwin
-    interval: 3600
-    observer_can_run: false
-    automations_enabled: false
+---
+api_version: v1
+kind: query
+metadata:
+  name: saltyMacs Last Run Inventory (macOS)
+  description: Shows the last saltyMacs run time, status, and repo commit for macOS hosts.
+spec:
+  query: |
+    SELECT
+      substr(
+        line,
+        instr(line, '"repo_commit":"') + 15,
+        instr(substr(line, instr(line, '"repo_commit":"') + 15), '"') - 1
+      ) AS repo_commit,
+      substr(
+        line,
+        instr(line, '"last_run":"') + 12,
+        instr(substr(line, instr(line, '"last_run":"') + 12), '"') - 1
+      ) AS last_run,
+      substr(
+        line,
+        instr(line, '"salt_status":"') + 15,
+        instr(substr(line, instr(line, '"salt_status":"') + 15), '"') - 1
+      ) AS salt_status
+    FROM file_lines
+    WHERE path = '/usr/local/saltymacs/state.json';
+  platform: darwin
+  interval: 600
+  observer_can_run: false
+  automations_enabled: false
 
-  - name: macOS Firewall Not Compliant
-    description: Lists macOS hosts where firewall is disabled or stealth mode is off.
-    query: |
-      SELECT 1 AS firewall_not_compliant
-      FROM alf
-      WHERE global_state = 0
-         OR stealth_enabled != 1;
-    platform: darwin
-    interval: 3600
-    observer_can_run: false
-    automations_enabled: false
+---
+api_version: v1
+kind: query
+metadata:
+  name: macOS Firewall Status
+  description: Shows firewall and stealth mode status on macOS hosts.
+spec:
+  query: |
+    SELECT
+      CASE
+        WHEN global_state = 0 THEN 'disabled'
+        WHEN global_state = 1 THEN 'enabled'
+        WHEN global_state = 2 THEN 'block_all'
+      END AS firewall_status,
+      CASE
+        WHEN stealth_enabled = 1 THEN 'enabled'
+        ELSE 'disabled'
+      END AS stealth_mode
+    FROM alf;
+  platform: darwin
+  interval: 600
+  observer_can_run: false
+  automations_enabled: false
 
+---
+api_version: v1
+kind: query
+metadata:
+  name: macOS Firewall Not Compliant
+  description: Lists macOS hosts where firewall is disabled or stealth mode is off.
+spec:
+  query: |
+    SELECT 1 AS firewall_not_compliant
+    FROM alf
+    WHERE global_state = 0
+       OR stealth_enabled != 1;
+  platform: darwin
+  interval: 600
+  observer_can_run: false
+  automations_enabled: false
