@@ -2,7 +2,7 @@ munki_prefs_software_repo:
   macdefaults.write:
     - name: SoftwareRepoURL
     - domain: /Library/Preferences/ManagedInstalls
-    - value: "http://192.168.1.196"
+    - value: "http://192.168.1.196:8080"
     - vtype: string
 
 munki_prefs_client_id:
