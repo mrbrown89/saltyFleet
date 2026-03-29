@@ -9,7 +9,7 @@ munki_prefs_client_id:
   macdefaults.write:
     - name: ClientIdentifier
     - domain: /Library/Preferences/ManagedInstalls
-    - value: "demo"
+    - value: ""
     - vtype: string
 
 munki_prefs_install_apple_updates:
