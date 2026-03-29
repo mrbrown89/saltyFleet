@@ -3,3 +3,4 @@ ci/ansible/packages/fleet-osquery.pkg
 /ci/packages/*
 !/ci/packages/.keep
 .DS_Store
+saltyFleet/packages/*
