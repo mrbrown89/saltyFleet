@@ -8,7 +8,7 @@ munki_preferences:
   macdefaults.write:
     - name: ClientIdentifier
     - domain: /Library/Preferences/ManagedInstalls
-    - value: "demo-macs"
+    - value: "saltyMacs"
     - vtype: string
 
   macdefaults.write:
