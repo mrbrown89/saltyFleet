@@ -1,4 +1,4 @@
-# saltyFleet
+# saltyFleet - WIP!!!!!!!
 
 Welcome to my Salty Fleet repo! 
 
@@ -25,7 +25,7 @@ To follow along you'll need:
 
 
 
-
+Installing packages - pkgbuild --root /Applications/Apparency.app --install-location /Applications Apparency.pkg
 
 
 
