@@ -14,7 +14,7 @@ munki_preferences:
   macdefaults.write:
     - name: InstallAppleSoftwareUpdates
     - domain: /Library/Preferences/ManagedInstalls
-    - value: True
+    - value: False
     - vtype: bool
 
   macdefaults.write:
