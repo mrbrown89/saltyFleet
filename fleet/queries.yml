@@ -1,9 +1,8 @@
 api_version: v1
-kind: query
-metadata:
+kind: report
+spec:
   name: saltyMacs State File Missing (macOS)
   description: Lists macOS hosts that do not have the saltyMacs state file.
-spec:
   query: |
     SELECT 1 AS missing_saltymacs_state
     WHERE NOT EXISTS (
@@ -18,11 +17,10 @@ spec:
 
 ---
 api_version: v1
-kind: query
-metadata:
+kind: report
+spec:
   name: saltyMacs Run Stale Over 2 Hours (macOS)
   description: Lists macOS hosts where saltyMacs state is older than 2 hours.
-spec:
   query: |
     SELECT 1 AS saltymacs_run_stale
     FROM file
@@ -35,11 +33,10 @@ spec:
 
 ---
 api_version: v1
-kind: query
-metadata:
+kind: report
+spec:
   name: saltyMacs Last Status Not Success (macOS)
   description: Lists macOS hosts where saltyMacs last recorded status was not success.
-spec:
   query: |
     SELECT 1 AS saltymacs_status_failed
     FROM file_lines
@@ -52,11 +49,10 @@ spec:
 
 ---
 api_version: v1
-kind: query
-metadata:
+kind: report
+spec:
   name: saltyMacs Last Run Inventory (macOS)
   description: Shows the last saltyMacs run time, status, and repo commit for macOS hosts.
-spec:
   query: |
     SELECT
       substr(
@@ -83,11 +79,10 @@ spec:
 
 ---
 api_version: v1
-kind: query
-metadata:
+kind: report
+spec:
   name: macOS Firewall Status
   description: Shows firewall and stealth mode status on macOS hosts.
-spec:
   query: |
     SELECT
       CASE
@@ -107,11 +102,10 @@ spec:
 
 ---
 api_version: v1
-kind: query
-metadata:
+kind: report
+spec:
   name: macOS Firewall Not Compliant
   description: Lists macOS hosts where firewall is disabled or stealth mode is off.
-spec:
   query: |
     SELECT 1 AS firewall_not_compliant
     FROM alf
