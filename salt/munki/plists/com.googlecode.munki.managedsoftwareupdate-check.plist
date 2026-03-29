@@ -1,0 +1,12 @@
+{
+    AssociatedBundleIdentifiers =     (
+        "com.googlecode.munki.ManagedSoftwareCenter"
+    );
+    Label = "com.googlecode.munki.managedsoftwareupdate-check";
+    ProgramArguments =     (
+        "/usr/local/munki/managedsoftwareupdate",
+        "--auto",
+        "--quiet"
+    );
+    StartInterval = 3600;
+}
