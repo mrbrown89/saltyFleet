@@ -1,4 +1,4 @@
-# saltyFleet - WIP!!!!!!!
+# saltyFleet
 
 Welcome to my Salty Fleet repo! 
 
