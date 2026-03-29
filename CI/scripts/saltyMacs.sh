@@ -189,7 +189,7 @@ writeLaunchDaemon() {
     <true/>
 
     <key>StartInterval</key>
-    <integer>3600</integer>
+    <integer>600</integer>
 
     <key>StandardOutPath</key>
     <string>/var/log/saltymacs.log</string>
