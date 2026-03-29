@@ -5,8 +5,6 @@ munki_check_daemon:
     - user: root
     - group: wheel
     - mode: '0644'
-    - require:
-      - pkg: munki
 
 reload_munki_check_daemon:
   cmd.run:
