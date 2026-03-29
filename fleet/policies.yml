@@ -1,0 +1,15 @@
+policies:
+  - name: macOS Firewall Enabled and Stealth Mode On
+    query: |
+      SELECT 1
+      FROM alf
+      WHERE global_state = 1
+        AND stealth_enabled = 1;
+    platform: darwin
+
+  - name: saltyMacs state.json exists
+    query: |
+      SELECT 1
+      FROM file
+      WHERE path = '/usr/local/saltymacs/state.json';
+    platform: darwin
