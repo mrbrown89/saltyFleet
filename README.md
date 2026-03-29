@@ -1,5 +1,30 @@
 # saltyFleet
 
+Welcome to my Salty Fleet repo! 
+
+What is it you ask? The purpose of this repo is to give test bed for managing macs with [salt](https://saltproject.io), deploy software with [munki](https://www.munki.org/munki/) and use [fleet](https://fleetdm.com) for visibility. The goal is to allow people to clone this repo and be able to have everything up and running quickly including a mac VM for testing. You can then tinkering around with the tools to learn them and to test out something you may want to use in your own environment!
+
+To follow along you'll need:
+
+**Tart**
+
+**Packer**
+
+**Ansible**
+
+**Docker**
+
+**fleetctl**
+
+
+## Quick Start Guide
+
+
+
+
+
+
+
 
 
 Holding pattern:
