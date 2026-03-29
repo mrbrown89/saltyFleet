@@ -25,8 +25,8 @@ start_bucket() {
 
 fleet_config() {
 
- ~/.fleetctl/fleetctl config set --file ../fleet/osqueryOptions.json
- ~/.fleetctl/fleetctl apply -f ../fleet/queries.yml
+"$HOME/.fleetctl/fleetctl" config set --file "$SCRIPT_DIR/../fleet/osqueryOptions.json"
+"$HOME/.fleetctl/fleetctl" apply -f "$SCRIPT_DIR/../fleet/queries.yml"
 
 }
 
