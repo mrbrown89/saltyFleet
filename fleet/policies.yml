@@ -26,5 +26,5 @@ spec:
   query: |
     SELECT 1
     FROM apps
-    WHERE name = 'Apparency';
+    WHERE bundle_identifier = 'com.mothersruin.Apparency';
   platform: darwin
