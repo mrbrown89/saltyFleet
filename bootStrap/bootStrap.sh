@@ -34,6 +34,7 @@ main() {
   install_fleetctl
   start_fleet
   start_bucket
+  fleet_config
 
   echo ""
   echo "Bootstrap complete!"
