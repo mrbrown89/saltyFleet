@@ -18,3 +18,13 @@ spec:
     FROM file
     WHERE path = '/usr/local/saltymacs/state.json';
   platform: darwin
+
+apiVersion: v1
+kind: policy
+spec:
+  name: Apparency installed
+  query: |
+    SELECT 1
+    FROM apps
+    WHERE name = 'Apparency';
+  platform: darwin
