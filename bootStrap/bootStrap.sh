@@ -23,10 +23,21 @@ start_bucket() {
   docker compose -f "$SCRIPT_DIR/../bucket/docker-compose.yml" up -d
 }
 
+fleet_login() {
+  "$HOME/.fleetctl/fleetctl" login --email "admin@example.com" --password "preview1337#"
+}
+
 fleet_config() {
 
-"$HOME/.fleetctl/fleetctl" config set --file "$SCRIPT_DIR/../fleet/osqueryOptions.json"
-"$HOME/.fleetctl/fleetctl" apply -f "$SCRIPT_DIR/../fleet/queries.yml"
+  local FLEETCTL="$HOME/.fleetctl/fleetctl"
+  local FLEET_DIR="$SCRIPT_DIR/../fleet"
+
+  echo "Applying Fleet configuration from $FLEET_DIR..."
+
+  for file in "$FLEET_DIR"/*.yml; do
+    echo "Applying $file"
+    "$FLEETCTL" apply -f "$file"
+  done
 
 }
 
@@ -34,6 +45,7 @@ main() {
   install_fleetctl
   start_fleet
   start_bucket
+  fleet_login
   fleet_config
 
   echo ""
