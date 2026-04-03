@@ -8,7 +8,7 @@ saltymacs_runtime_dir:
 saltymacs_update_script:
   file.managed:
     - name: /usr/local/saltymacs/updateSaltymacs.zsh
-    - source: /opt/saltyMacs/bin/updateSaltymacs.zsh
+    - source: /opt/saltyMacs/salt/saltyStuff/updateSaltymacs.zsh
     - user: root
     - group: wheel
     - mode: '0755'
