@@ -1,10 +1,7 @@
-version: '3.8'
-
 services:
   jenkins:
     image: jenkins/jenkins:lts
     container_name: salty-jenkins
-    restart: unless-stopped
 
     ports:
       - "8080:8080"
@@ -12,9 +9,8 @@ services:
 
     volumes:
       - jenkins_home:/var/jenkins_home
+      - ./casc.yaml:/var/jenkins_home/casc.yaml
 
     environment:
       - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
-
-volumes:
-  jenkins_home:
+      - CASC_JENKINS_CONFIG=/var/jenkins_home/casc.yaml
