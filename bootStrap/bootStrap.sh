@@ -23,11 +23,6 @@ start_bucket() {
   docker compose -f "$SCRIPT_DIR/../bucket/docker-compose.yml" up -d
 }
 
-start_jenkins() {
-  echo "Starting Jenkins container"
-  docker compose -f "$SCRIPT_DIR/../ci/jenkins/docker-compose.yml" up -d
-}
-
 fleet_login() {
   "$HOME/.fleetctl/fleetctl" login --email "admin@example.com" --password "preview1337#"
 }
@@ -50,7 +45,6 @@ main() {
   install_fleetctl
   start_fleet
   start_bucket
-  start_jenkins
   fleet_login
   fleet_config
 

@@ -1,4 +1,0 @@
-git
-workflow-aggregator
-configuration-as-code
-ssh-agent
