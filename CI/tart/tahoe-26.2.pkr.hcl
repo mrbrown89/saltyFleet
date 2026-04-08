@@ -86,10 +86,6 @@ build {
       "spctl --status | grep -q 'assessments disabled'"
     ]
   }
-  
-provisioner "shell" {
-  script = "../scripts/xcodeTools.sh"
-}
 
 provisioner "shell" {
   script = "../scripts/brew.sh"
