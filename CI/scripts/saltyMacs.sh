@@ -10,14 +10,14 @@ repoURL="https://github.com/mrbrown89/saltyFleet.git"
 repoDir="/opt/saltyFleet"
 branch="main"
 
-saltyDir="/usr/local/saltymacs"
-updateScript="${saltyDir}/updateSaltymacs.zsh"
+saltyDir="/usr/local/saltyfleet"
+updateScript="${saltyDir}/updatesaltyfleet.zsh"
 
-plistPath="/Library/LaunchDaemons/com.saltyfleet.saltymacs.plist"
-logFile="/var/log/saltymacs.log"
+plistPath="/Library/LaunchDaemons/com.saltyfleet.saltyfleet.plist"
+logFile="/var/log/saltyfleet.log"
 
 saltConfDir="/etc/salt/minion.d"
-saltConfFile="${saltConfDir}/saltymacs.conf"
+saltConfFile="${saltConfDir}/saltyfleet.conf"
 
 ##############################################################################
 # Functions
@@ -99,8 +99,8 @@ repoURL="https://github.com/mrbrown89/saltyFleet.git"
 repoDir="/opt/saltyFleet"
 branch="main"
 
-logFile="/var/log/saltymacs.log"
-lockDir="/var/run/saltymacs.lock"
+logFile="/var/log/saltyfleet.log"
+lockDir="/var/run/saltyfleet.lock"
 
 ##############################################################################
 # Functions
@@ -112,7 +112,7 @@ logMessage() {
 
 startLogging() {
     exec >> "${logFile}" 2>&1
-    logMessage "===== saltyMacs run started ====="
+    logMessage "===== saltyfleet run started ====="
 }
 
 acquireLock() {
@@ -126,7 +126,7 @@ acquireLock() {
 cleanup() {
     rm -rf "${lockDir}" 2>/dev/null
     logMessage "Lock released"
-    logMessage "===== saltyMacs run finished ====="
+    logMessage "===== saltyfleet run finished ====="
 }
 
 cloneOrUpdateRepo() {
@@ -169,7 +169,7 @@ runSaltCall() {
     runStatus="success"
     [[ "${result}" -ne 0 ]] && runStatus="failed"
 
-    printf '%s\n' "{\"repo_commit\":\"${commit}\",\"last_run\":\"$(date -u +%FT%TZ)\",\"salt_status\":\"${runStatus}\"}" > /usr/local/saltymacs/state.json
+    printf '%s\n' "{\"repo_commit\":\"${commit}\",\"last_run\":\"$(date -u +%FT%TZ)\",\"salt_status\":\"${runStatus}\"}" > /usr/local/saltyfleet/state.json
 
     return "${result}"
 }
@@ -202,11 +202,11 @@ writeLaunchDaemon() {
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>com.saltyfleet.saltymacs</string>
+    <string>com.saltyfleet.saltyfleet</string>
 
     <key>ProgramArguments</key>
     <array>
-        <string>/usr/local/saltymacs/updateSaltymacs.zsh</string>
+        <string>/usr/local/saltyfleet/updatesaltyfleet.zsh</string>
     </array>
 
     <key>RunAtLoad</key>
@@ -216,10 +216,10 @@ writeLaunchDaemon() {
     <integer>600</integer>
 
     <key>StandardOutPath</key>
-    <string>/var/log/saltymacs.log</string>
+    <string>/var/log/saltyfleet.log</string>
 
     <key>StandardErrorPath</key>
-    <string>/var/log/saltymacs.log</string>
+    <string>/var/log/saltyfleet.log</string>
 </dict>
 </plist>
 EOF
@@ -231,7 +231,7 @@ EOF
 loadLaunchDaemon() {
     logMessage "Loading LaunchDaemon"
 
-    if /bin/launchctl print system/com.saltyfleet.saltymacs >/dev/null 2>&1; then
+    if /bin/launchctl print system/com.saltyfleet.saltyfleet >/dev/null 2>&1; then
         logMessage "Reloading existing daemon"
         /bin/launchctl bootout system "${plistPath}" >/dev/null 2>&1
     fi
@@ -246,7 +246,7 @@ loadLaunchDaemon() {
 main() {
     exec >> "${logFile}" 2>&1
 
-    logMessage "===== saltyMacs bootstrap started ====="
+    logMessage "===== saltyfleet bootstrap started ====="
     installXcodeTools
     createDirectories
     writeSaltConfig
@@ -254,7 +254,7 @@ main() {
     writeLaunchDaemon
     loadLaunchDaemon
 
-    logMessage "===== saltyMacs bootstrap finished ====="
+    logMessage "===== saltyfleet bootstrap finished ====="
 }
 
 main
