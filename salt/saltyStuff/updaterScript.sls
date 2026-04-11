@@ -1,16 +1,16 @@
-saltymacs_runtime_dir:
+saltyfleet_runtime_dir:
   file.directory:
-    - name: /usr/local/saltymacs
+    - name: /usr/local/saltyfleet
     - user: root
     - group: wheel
     - mode: '0755'
 
-saltymacs_update_script:
+saltyfleet_update_script:
   file.managed:
-    - name: /usr/local/saltymacs/updateSaltymacs.zsh
-    - source: /opt/saltyMacs/salt/saltyStuff/updateSaltymacs.zsh
+    - name: /usr/local/saltyfleet/updatesaltyfleet.zsh
+    - source: /opt/saltyfleet/salt/saltyStuff/updatesaltyfleet.zsh
     - user: root
     - group: wheel
     - mode: '0755'
     - require:
-      - file: saltymacs_runtime_dir
+      - file: saltyfleet_runtime_dir
