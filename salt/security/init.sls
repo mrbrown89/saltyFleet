@@ -8,4 +8,3 @@ include:
     - security.disableRootShell
     - security.networkTime
     - security.nfsServer
-    - security.sudoTimeout
