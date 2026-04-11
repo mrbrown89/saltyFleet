@@ -4,3 +4,4 @@ base:
     - xcode
     - security
     - installers
+    - smbSigning
