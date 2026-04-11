@@ -3,5 +3,5 @@ base:
     - rosetta
     - xcode
     - security
-    - installers
+#    - installers
     - smbSigning
