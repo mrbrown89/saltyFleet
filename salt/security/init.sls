@@ -1,3 +1,11 @@
 include:
     - security.firewall
     - security.terminalKeyboard
+    - security.auditControl
+    - security.auditd
+    - security.disableGuestSMB
+    - security.disableRemoteAppleEvents
+    - security.disableRootShell
+    - security.networkTime
+    - security.nfsServer
+    - security.sudoTimeout
